@@ -1,0 +1,10 @@
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+logs/
+target/
+*.log
+.DS_Store
