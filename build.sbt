@@ -15,8 +15,8 @@ lazy val commonSettings = Seq(
 
 lazy val model = (crossProject.crossType(CrossType.Pure) in file("modules/model"))
   .settings(commonSettings: _*)
-lazy val modelJVM = model.jvm.settings(name := "modelJVM")
-lazy val modelJS = model.js.settings(name := "modelJS")
+lazy val modelJVM = model.jvm.settings(name := "playpen-model-jvm")
+lazy val modelJS = model.js.settings(name := "playpen-model-js")
 
 // To resolve scalaz-stream for Specs2
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
@@ -26,6 +26,7 @@ lazy val webui: Project = (project in file("modules/webui"))
   .enablePlugins(BuildInfoPlugin)
   .settings(commonSettings)
   .settings(
+    name := "playpen-webui",
     libraryDependencies ++= Seq(
       cache,
       ws,
@@ -44,8 +45,8 @@ lazy val webui: Project = (project in file("modules/webui"))
 
 lazy val webuiClient: Project = (project in file("modules/webui-client"))
   .settings(commonSettings)
-  .settings(name := "webuiClient")
   .settings(
+    name := "playpen-webui-client",
     persistLauncher := true,
     persistLauncher in Test := false,
     libraryDependencies ++= Seq(
@@ -68,3 +69,7 @@ lazy val webuiClient: Project = (project in file("modules/webui-client"))
 lazy val root = (project in file("."))
   .aggregate(webui, modelJVM)
   .settings(commonSettings)
+
+// Without this, webui Play project is skipped, since it's a parent project of webui-client
+EclipseKeys.skipParents in ThisBuild := false
+EclipseKeys.skipProject := true

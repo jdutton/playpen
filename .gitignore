@@ -1,8 +1,10 @@
 /.idea
 /.idea_modules
-/.classpath
-/.project
-/.settings
+.classpath
+.project
+.settings
+.js/
+.jvm/
 /RUNNING_PID
 logs/
 target/
