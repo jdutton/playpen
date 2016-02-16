@@ -24,7 +24,12 @@ class ApplicationSpec extends Specification {
 
       status(home) must equalTo(OK)
       contentType(home) must beSome.which(_ == "text/html")
-      contentAsString(home) must contain("Your new application is ready.")
+      val html = contentAsString(home)
+      val jsTypes = List("jsdeps", "fastopt", "launcher")
+      for (typ <- jsTypes) yield {
+        html must contain(s"/assets/playpen-webui-client-$typ.js")
+      }
+
     }
   }
 }
