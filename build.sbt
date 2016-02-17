@@ -18,15 +18,14 @@ lazy val model = (crossProject.crossType(CrossType.Pure) in file("modules/model"
 lazy val modelJVM = model.jvm.settings(name := "playpen-model-jvm")
 lazy val modelJS = model.js.settings(name := "playpen-model-js")
 
-// To resolve scalaz-stream for Specs2
-resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
-
 lazy val webui: Project = (project in file("modules/webui"))
   .enablePlugins(PlayScala)
   .enablePlugins(BuildInfoPlugin)
   .settings(commonSettings)
   .settings(
     name := "playpen-webui",
+    // To resolve scalaz-stream for Specs2
+    resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
     libraryDependencies ++= Seq(
       cache,
       ws,
